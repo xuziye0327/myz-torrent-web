@@ -14,8 +14,9 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      ls '$(System.DefaultWorkingDirectory)'
       rm '$(System.DefaultWorkingDirectory)/.env.production'
-      echo $(VUE_APP_API_ENDPOINT) >> '$(System.DefaultWorkingDirectory)/.env.production'
+      echo '$(VUE_APP_API_ENDPOINT)' >> '$(System.DefaultWorkingDirectory)/.env.production'
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
