@@ -4,10 +4,12 @@ import vuetify from './plugins/vuetify';
 import axios from 'axios'
 import VueClipboard from 'vue-clipboard2'
 
+axios.defaults.baseURL=process.env.VUE_APP_API_ENDPOINT
+Vue.prototype.$axios = axios
+
 Vue.config.productionTip = false
 
 Vue.use(VueClipboard)
-Vue.prototype.$axios = axios
 
 new Vue({
   vuetify,

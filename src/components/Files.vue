@@ -62,7 +62,7 @@ export default {
       const msg = this.tree
         .map(
           (link) =>
-            process.env.VUE_APP_DEV_SERVER + "file/" + this.pathEncode(link)
+            process.env.VUE_APP_API_ENDPOINT + "file/" + this.pathEncode(link)
         )
         .join("\n");
       this.$copyText(msg).then(

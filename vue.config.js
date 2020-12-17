@@ -3,6 +3,6 @@ module.exports = {
     "vuetify"
   ],
   devServer: {
-    proxy: process.env.PROXY
+    proxy: process.env.PROXY,
   },
 }
