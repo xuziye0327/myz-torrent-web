@@ -18,29 +18,29 @@
     </v-footer>
     <v-list two-line>
       <template v-for="(item, index) in items">
-        <v-list-item :key="item.id">
+        <v-list-item :key="item.gid">
           <v-list-item-action>
             <v-checkbox
               v-model="selected"
-              :value="item.id"
+              :value="item.gid"
               on-icon="mdi-circle"
               off-icon="mdi-circle-outline"
             ></v-checkbox>
           </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title v-text="item.name"></v-list-item-title>
+            <v-list-item-title v-text="item.infoHash"></v-list-item-title>
 
             <v-list-item-subtitle
               class="text--primary"
-              v-text="resolveState(item.state)"
+              v-text="resolveState(item)"
             ></v-list-item-subtitle>
 
             <v-list-item-subtitle>
               <v-progress-linear
                 color="teal"
                 buffer-value="0"
-                :value="item.state.percent"
+                :value="0"
               ></v-progress-linear
             ></v-list-item-subtitle>
           </v-list-item-content>
@@ -55,17 +55,17 @@
                 </template>
                 <v-list>
                   <v-list-item>
-                    <v-btn text v-on:click="startDownloadItem([item.id])"
+                    <v-btn text v-on:click="startDownloadItem([item.gid])"
                       >Start</v-btn
                     >
                   </v-list-item>
                   <v-list-item>
-                    <v-btn text v-on:click="deleteDownloadItem([item.id])"
+                    <v-btn text v-on:click="deleteDownloadItem([item.gid])"
                       >Delete</v-btn
                     >
                   </v-list-item>
                   <v-list-item>
-                    <v-btn text v-on:click="pauseDownloadItem([item.id])"
+                    <v-btn text v-on:click="pauseDownloadItem([item.gid])"
                       >Pause
                     </v-btn>
                   </v-list-item>
@@ -106,9 +106,10 @@ export default {
   methods: {
     loadData() {
       this.$axios
-        .get("download")
+        .get("job")
         .then((resp) => {
           this.items = resp.data;
+          console.log(this.items)
         })
         .catch(console.error);
     },
@@ -125,25 +126,26 @@ export default {
       console.debug(ids);
     },
 
-    resolveState(state) {
+    resolveState(item) {
       return (
-        state.percent.toFixed(2) +
-        "% " +
-        this.convertBytes(state.rate) +
+        // state.percent.toFixed(2) +
+        // "% " +
+        this.convertBytes(item.downloadSpeed) +
         "/s " +
-        this.convertBytes(state.complete_bytes) +
+        this.convertBytes(item.completedLength) +
         "/" +
-        this.convertBytes(state.total_bytes)
+        this.convertBytes(item.totalLength)
       );
     },
     convertBytes(bytes) {
-      const units = ["bytes", "KB", "MB", "GB", "TB"];
-      var unit = 0;
-      while (bytes > 1024) {
-        unit += 1;
-        bytes /= 1024;
-      }
-      return bytes.toFixed(2) + units[unit];
+      return bytes
+      // const units = ["bytes", "KB", "MB", "GB", "TB"];
+      // var unit = 0;
+      // while (bytes > 1024) {
+      //   unit += 1;
+      //   bytes /= 1024;
+      // }
+      // return bytes.toFixed(2) + units[unit];
     },
   },
 };

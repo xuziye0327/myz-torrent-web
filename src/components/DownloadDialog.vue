@@ -73,7 +73,7 @@ export default {
           .split("\n")
           .filter((s) => s);
         this.$axios
-          .post("download", items)
+          .post("add_uri", items)
           .then(() => {
             this.submitSussMsg = "Success add downloads: " + items.length;
           })
