@@ -29,7 +29,7 @@
           </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title v-text="item.infoHash"></v-list-item-title>
+            <v-list-item-title v-text="item.bittorrent.info.name"></v-list-item-title>
 
             <v-list-item-subtitle
               class="text--primary"
@@ -138,14 +138,14 @@ export default {
       );
     },
     convertBytes(bytes) {
-      return bytes
-      // const units = ["bytes", "KB", "MB", "GB", "TB"];
-      // var unit = 0;
-      // while (bytes > 1024) {
-      //   unit += 1;
-      //   bytes /= 1024;
-      // }
-      // return bytes.toFixed(2) + units[unit];
+      //return bytes
+      const units = ["bytes", "KB", "MB", "GB", "TB"];
+      var unit = 0;
+      while (bytes > 1024) {
+        unit += 1;
+        bytes /= 1024;
+      }
+      return bytes.toFixed(2) + units[unit];
     },
   },
 };
