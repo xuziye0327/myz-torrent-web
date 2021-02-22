@@ -141,11 +141,12 @@ export default {
       //return bytes
       const units = ["bytes", "KB", "MB", "GB", "TB"];
       var unit = 0;
-      while (bytes > 1024) {
+      var f = parseFloat(bytes)
+      while (f > 1024) {
         unit += 1;
-        bytes /= 1024;
+        f /= 1024;
       }
-      return bytes.toFixed(2) + units[unit];
+      return f.toFixed(2) + units[unit];
     },
   },
 };
